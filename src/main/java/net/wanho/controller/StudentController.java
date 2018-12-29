@@ -46,9 +46,10 @@ public class StudentController {
         mv.addObject("totalPages", pageInfo.getPages());
         mv.addObject("currentPage", pageNum);
         mv.setViewName("select");
-        return mv;
+       return mv;
     }
 
+    //删除学生信息
     //删除学生信息
     @RequestMapping("delete")
     public String deleteStudent(Integer id) {
@@ -95,7 +96,9 @@ public class StudentController {
         return mv;
     }
 
-
+    public static void main(String[] args) {
+        System.out.println();
+    }
 
 }
 
