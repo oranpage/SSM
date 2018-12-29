@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.wanho.mapper.StudentMapper">
+
+    <resultMap id="studentResultMap" type="net.wanho.model.Student">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="DECIMAL"/>
+    </resultMap>
+
+
+
+    <select id="getStudentById" parameterType="java.lang.Integer" resultMap="studentResultMap">
+        SELECT * FROM student t WHERE t.id = #{id}
+    </select>
+
+    <select id="getAllStudent"  resultMap="studentResultMap">
+        SELECT * FROM student
+    </select>
+
+
+    <delete id="deleteStudentById" parameterType="java.lang.Integer">
+        DELETE FROM student  WHERE id  = #{id}
+    </delete>
+
+    <insert id="addStudent">
+         INSERT INTO student VALUES(NULL,#{name},#{age})
+    </insert>
+
+
+    <update id="updateStudent" parameterType="net.wanho.model.Student">
+        UPDATE student
+        <set>
+            <if test="null !=name">
+                name = #{name},
+            </if>
+            <if test="null !=age">
+                age = #{age},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getStudentByNameAndAge" resultMap="studentResultMap">
+        SELECT  * FROM  student
+        where 1=1
+        <if test="null !=name">
+            AND  name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="null !=age">
+            AND  age LIKE concat('%',#{age},'%')
+        </if>
+    </select>
+
+
+</mapper>
